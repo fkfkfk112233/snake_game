@@ -30,8 +30,6 @@ export function startGame() {
   // 建立新的 Snake 與 Food
   initializeGame();
 
-  console.log(game.snake);
-
   setGameState(GAME_STATES.GAME);
 
   renderScreen();
@@ -108,7 +106,7 @@ function updateGame() {
   renderGame();
 }
 
-function endGame() {
+export function endGame() {
   game.gameOver = true;
 
   stopGame();

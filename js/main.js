@@ -7,7 +7,7 @@ import {
 
 import { renderScreen } from "./ui/screenManager.js";
 
-import { startGame, stopGame } from "./game/gameLoop.js";
+import { startGame, stopGame, endGame } from "./game/gameLoop.js";
 
 import { initializeInput } from "./game/input.js";
 
@@ -78,6 +78,7 @@ document.getElementById("homeButton").addEventListener("click", () => {
 
   navigateTo(GAME_STATES.HOME);
 });
+
 // ====================
 // Game Over → Restart
 // ====================
@@ -93,25 +94,11 @@ document.getElementById("restartButton").addEventListener("click", () => {
 renderScreen();
 
 // ====================
-// Initial Screen
-// ====================
-
-renderScreen();
-
-// ====================
 // End Game Button
 // ====================
 
 document.getElementById("endGameButton").addEventListener("click", () => {
-  stopGame();
-
-  game.gameOver = true;
-
-  document.getElementById("finalScore").textContent = game.score;
-
-  setGameState(GAME_STATES.GAME_OVER);
-
-  renderScreen();
+  endGame();
 });
 
 function renderSettings() {
