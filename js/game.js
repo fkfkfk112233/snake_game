@@ -1,9 +1,12 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
+const scoreElement = document.getElementById("score");
 
 const boardSize = 600;
 const cellSize = 20;
 
+let score = 0;
+let gameOver = false;
 
 // ====================
 // Snake
@@ -142,6 +145,19 @@ function moveSnake() {
         newHead.x += 1;
     }
 
+    // 判斷是否撞到牆壁
+
+    const hitWall =
+        newHead.x < 0 ||
+        newHead.x >= boardSize / cellSize ||
+        newHead.y < 0 ||
+        newHead.y >= boardSize / cellSize;
+
+    if (hitWall) {
+        // alert("Game Over! You hit the wall.");
+        gameOver = true;
+        return;
+    }
 
     // 判斷有沒有吃到食物
 
@@ -165,6 +181,8 @@ function moveSnake() {
     // 如果吃到食物
 
     if (ateFood) {
+        score += 1;
+        scoreElement.textContent = score;
         createFood();
     }
 }
@@ -213,6 +231,11 @@ function drawGame() {
 // ====================
 
 function gameLoop() {
+
+    if (gameOver) {
+        // alert("Game Over! Your score: " + score);
+        return;
+    }
 
     moveSnake();
 
