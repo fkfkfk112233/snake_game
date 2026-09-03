@@ -111,19 +111,19 @@ function moveSnake() {
 
 function handleKeyDown(event) {
 
-    if (event.key === "ArrowUp") {
+    if (event.key === "ArrowUp" && direction !== "DOWN") {
         direction = "UP";
     }
 
-    if (event.key === "ArrowDown") {
+    if (event.key === "ArrowDown" && direction !== "UP") {
         direction = "DOWN";
     }
 
-    if (event.key === "ArrowLeft") {
+    if (event.key === "ArrowLeft" && direction !== "RIGHT") {
         direction = "LEFT";
     }
 
-    if (event.key === "ArrowRight") {
+    if (event.key === "ArrowRight" && direction !== "LEFT") {
         direction = "RIGHT";
     }
 }
