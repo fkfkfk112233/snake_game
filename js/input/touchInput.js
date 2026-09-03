@@ -1,28 +1,34 @@
 import { game, GAME_STATES, MOBILE_CONTROLS } from "../state/gameState.js";
 
+import { DEVICE_TYPES } from "../device/deviceDetector.js";
+
 let startX = 0;
 let startY = 0;
 
 const SWIPE_THRESHOLD = 30;
 
 export function initializeTouchInput() {
-  const canvas = document.getElementById("gameCanvas");
+  const gameScreen = document.getElementById("gameScreen");
 
-  if (!canvas) {
+  if (!gameScreen) {
     return;
   }
 
-  canvas.addEventListener("touchstart", handleTouchStart, {
+  gameScreen.addEventListener("touchstart", handleTouchStart, {
     passive: true,
   });
 
-  canvas.addEventListener("touchend", handleTouchEnd, {
+  gameScreen.addEventListener("touchend", handleTouchEnd, {
     passive: true,
   });
 }
 
 function handleTouchStart(event) {
   if (game.screen !== GAME_STATES.GAME) {
+    return;
+  }
+
+  if (game.deviceType !== DEVICE_TYPES.MOBILE) {
     return;
   }
 
@@ -38,6 +44,10 @@ function handleTouchStart(event) {
 
 function handleTouchEnd(event) {
   if (game.screen !== GAME_STATES.GAME) {
+    return;
+  }
+
+  if (game.deviceType !== DEVICE_TYPES.MOBILE) {
     return;
   }
 
