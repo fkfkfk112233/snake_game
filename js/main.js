@@ -68,6 +68,14 @@ document.getElementById("startGameButton").addEventListener("click", () => {
     game.boardSize = Number(selectedBoardSize);
   }
 
+  const selectedMobileControl = document.querySelector(
+    'input[name="mobileControl"]:checked',
+  );
+
+  if (selectedMobileControl) {
+    game.mobileControl = selectedMobileControl.value;
+  }
+
   startGame();
 });
 

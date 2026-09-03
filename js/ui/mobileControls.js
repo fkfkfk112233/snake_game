@@ -1,4 +1,6 @@
-import { game, GAME_STATES } from "../state/gameState.js";
+import { game, GAME_STATES, MOBILE_CONTROLS } from "../state/gameState.js";
+
+import { DEVICE_TYPES } from "../device/deviceDetector.js";
 
 export function initializeMobileControls() {
   const upButton = document.getElementById("upButton");
@@ -32,6 +34,10 @@ function changeDirection(direction) {
     return;
   }
 
+  if (game.mobileControl !== MOBILE_CONTROLS.BUTTONS) {
+    return;
+  }
+
   if (direction === "UP" && game.direction !== "DOWN") {
     game.direction = "UP";
   }
@@ -47,4 +53,27 @@ function changeDirection(direction) {
   if (direction === "RIGHT" && game.direction !== "LEFT") {
     game.direction = "RIGHT";
   }
+}
+
+export function updateMobileControls() {
+  const mobileControls = document.getElementById("mobileControls");
+
+  if (!mobileControls) {
+    return;
+  }
+
+  // Desktop 永遠不顯示手機控制器
+  if (game.deviceType !== DEVICE_TYPES.MOBILE) {
+    mobileControls.style.display = "none";
+    return;
+  }
+
+  // Mobile + Arrow Buttons
+  if (game.mobileControl === MOBILE_CONTROLS.BUTTONS) {
+    mobileControls.style.display = "flex";
+    return;
+  }
+
+  // Mobile + Swipe
+  mobileControls.style.display = "none";
 }

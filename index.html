@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/home.css" />
     <link rel="stylesheet" href="css/game.css" />
     <link rel="stylesheet" href="css/setting.css" />
-    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/mobile.css" />
   </head>
 
   <body>
@@ -63,6 +63,20 @@
             <button id="settingsButton" class="secondary-button">設定</button>
           </div>
         </div>
+
+        <div id="mobileControlSetting" class="setting-group">
+          <h3>Mobile Control</h3>
+
+          <label>
+            <input type="radio" name="mobileControl" value="BUTTONS" checked />
+            Arrow Buttons
+          </label>
+
+          <label>
+            <input type="radio" name="mobileControl" value="SWIPE" />
+            Swipe
+          </label>
+        </div>
       </section>
 
       <!-- ==================== -->
@@ -84,16 +98,16 @@
         </div>
 
         <div class="canvas-container">
-          <canvas id="gameCanvas" width="600" height="600"> </canvas>
+          <canvas id="gameCanvas" width="600" height="600"></canvas>
+        </div>
 
-          <div id="mobileControls" class="mobile-controls">
-            <button id="upButton" class="control-button">↑</button>
+        <div id="mobileControls" class="mobile-controls">
+          <button id="upButton" class="control-button">↑</button>
 
-            <div class="control-row">
-              <button id="leftButton" class="control-button">←</button>
-              <button id="downButton" class="control-button">↓</button>
-              <button id="rightButton" class="control-button">→</button>
-            </div>
+          <div class="control-row">
+            <button id="leftButton" class="control-button">←</button>
+            <button id="downButton" class="control-button">↓</button>
+            <button id="rightButton" class="control-button">→</button>
           </div>
         </div>
       </section>

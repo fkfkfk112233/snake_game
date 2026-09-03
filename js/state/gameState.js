@@ -10,28 +10,22 @@ export const BOARD_SIZES = {
   DEFAULT: 30,
 };
 
+export const MOBILE_CONTROLS = {
+  BUTTONS: "BUTTONS",
+  SWIPE: "SWIPE",
+};
+
 export const game = {
   screen: GAME_STATES.HOME,
-
   deviceType: null,
-
   mode: "NORMAL",
-
   boardSize: BOARD_SIZES.DEFAULT,
-
   speed: "NORMAL",
-
+  mobileControl: MOBILE_CONTROLS.BUTTONS,
   score: 0,
-
   snake: [],
-
-  food: {
-    x: 0,
-    y: 0,
-  },
-
+  food: { x: 0, y: 0 },
   direction: "RIGHT",
-
   gameOver: false,
 };
 
