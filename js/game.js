@@ -19,6 +19,32 @@ let direction = "RIGHT";
 
 
 // ====================
+// Food
+// ====================
+
+const food = {
+    x: 0,
+    y: 0
+};
+
+
+// ====================
+// Create Food
+// ====================
+
+function createFood() {
+
+    food.x = Math.floor(
+        Math.random() * (boardSize / cellSize)
+    );
+
+    food.y = Math.floor(
+        Math.random() * (boardSize / cellSize)
+    );
+}
+
+
+// ====================
 // Draw Board
 // ====================
 
@@ -71,6 +97,23 @@ function drawSnake() {
 
 
 // ====================
+// Draw Food
+// ====================
+
+function drawFood() {
+
+    ctx.fillStyle = "red";
+
+    ctx.fillRect(
+        food.x * cellSize,
+        food.y * cellSize,
+        cellSize,
+        cellSize
+    );
+}
+
+
+// ====================
 // Move Snake
 // ====================
 
@@ -99,9 +142,31 @@ function moveSnake() {
         newHead.x += 1;
     }
 
+
+    // 判斷有沒有吃到食物
+
+    const ateFood =
+        newHead.x === food.x &&
+        newHead.y === food.y;
+
+
+    // 加入新的蛇頭
+
     snake.unshift(newHead);
 
-    snake.pop();
+
+    // 如果沒有吃到食物才刪除尾巴
+
+    if (!ateFood) {
+        snake.pop();
+    }
+
+
+    // 如果吃到食物
+
+    if (ateFood) {
+        createFood();
+    }
 }
 
 
@@ -139,6 +204,7 @@ function drawGame() {
 
     drawBoard();
     drawSnake();
+    drawFood();
 }
 
 
@@ -152,5 +218,12 @@ function gameLoop() {
 
     drawGame();
 }
+
+
+// ====================
+// Start Game
+// ====================
+
+createFood();
 
 setInterval(gameLoop, 150);
