@@ -14,7 +14,7 @@ export function isFoodCollision(head) {
 }
 
 export function isSelfCollision(head) {
-  for (let i = 1; i < game.snake.length; i++) {
+  for (let i = 0; i < game.snake.length - 1; i++) {
     const body = game.snake[i];
 
     if (head.x === body.x && head.y === body.y) {

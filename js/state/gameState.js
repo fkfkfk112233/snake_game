@@ -33,3 +33,14 @@ export function setGameState(newState) {
 export function getGameState() {
   return game.screen;
 }
+
+export function resetGameState() {
+  game.score = 0;
+  game.snake = [];
+  game.food = {
+    x: 0,
+    y: 0,
+  };
+  game.direction = "RIGHT";
+  game.gameOver = false;
+}

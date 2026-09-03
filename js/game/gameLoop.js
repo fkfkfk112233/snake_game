@@ -1,4 +1,4 @@
-import { game, GAME_STATES, setGameState } from "../state/gameState.js";
+import { game, GAME_STATES, setGameState, resetGameState } from "../state/gameState.js";
 
 import { moveSnake, applySnakeMove, initializeSnake } from "./snake.js";
 
@@ -22,6 +22,8 @@ export function startGame() {
   game.score = 0;
   game.direction = "RIGHT";
   game.gameOver = false;
+
+  resetGameState();
 
   initializeGame();
 

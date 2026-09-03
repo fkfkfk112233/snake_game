@@ -1,4 +1,9 @@
-import { game, GAME_STATES, setGameState } from "./state/gameState.js";
+import {
+  game,
+  GAME_STATES,
+  setGameState,
+  resetGameState,
+} from "./state/gameState.js";
 
 import { renderScreen } from "./ui/screenManager.js";
 
@@ -25,7 +30,13 @@ document.getElementById("startGameButton").addEventListener("click", () => {
     'input[name="gameMode"]:checked',
   ).value;
 
+  const selectedBoardSize = document.querySelector(
+    'input[name="boardSize"]:checked',
+  ).value;
+
   game.mode = selectedMode;
+
+  game.boardSize = Number(selectedBoardSize);
 
   startGame();
 });
@@ -51,9 +62,10 @@ document.getElementById("settingsBackButton").addEventListener("click", () => {
 // ====================
 
 document.getElementById("homeButton").addEventListener("click", () => {
+  resetGameState();
+
   navigateTo(GAME_STATES.HOME);
 });
-
 // ====================
 // Game Over → Restart
 // ====================
@@ -78,21 +90,14 @@ renderScreen();
 // End Game Button
 // ====================
 
-document
-    .getElementById("endGameButton")
-    .addEventListener("click", () => {
+document.getElementById("endGameButton").addEventListener("click", () => {
+  stopGame();
 
-        stopGame();
+  game.gameOver = true;
 
-        game.gameOver = true;
+  document.getElementById("finalScore").textContent = game.score;
 
-        document.getElementById(
-            "finalScore"
-        ).textContent = game.score;
+  setGameState(GAME_STATES.GAME_OVER);
 
-        setGameState(
-            GAME_STATES.GAME_OVER
-        );
-
-        renderScreen();
-    });
+  renderScreen();
+});
