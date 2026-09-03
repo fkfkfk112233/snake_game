@@ -4,8 +4,11 @@ import { DEVICE_TYPES } from "../device/deviceDetector.js";
 
 export function initializeMobileControls() {
   const upButton = document.getElementById("upButton");
+
   const downButton = document.getElementById("downButton");
+
   const leftButton = document.getElementById("leftButton");
+
   const rightButton = document.getElementById("rightButton");
 
   if (!upButton || !downButton || !leftButton || !rightButton) {
@@ -34,6 +37,12 @@ function changeDirection(direction) {
     return;
   }
 
+  // Desktop 不允許使用 Mobile Button
+  if (game.deviceType !== DEVICE_TYPES.MOBILE) {
+    return;
+  }
+
+  // 只有 Arrow Buttons 模式可以使用
   if (game.mobileControl !== MOBILE_CONTROLS.BUTTONS) {
     return;
   }
@@ -62,15 +71,17 @@ export function updateMobileControls() {
     return;
   }
 
-  // Desktop 永遠不顯示手機控制器
+  // Desktop 永遠不顯示
   if (game.deviceType !== DEVICE_TYPES.MOBILE) {
     mobileControls.style.display = "none";
+
     return;
   }
 
   // Mobile + Arrow Buttons
   if (game.mobileControl === MOBILE_CONTROLS.BUTTONS) {
     mobileControls.style.display = "flex";
+
     return;
   }
 

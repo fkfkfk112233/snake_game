@@ -57,25 +57,30 @@
             </label>
           </div>
 
+          <div id="mobileControlSetting" class="setting-group">
+            <h3>Mobile Control</h3>
+
+            <label class="option">
+              <input
+                type="radio"
+                name="mobileControl"
+                value="BUTTONS"
+                checked
+              />
+              <span>Arrow Buttons</span>
+            </label>
+
+            <label class="option">
+              <input type="radio" name="mobileControl" value="SWIPE" />
+              <span>Swipe</span>
+            </label>
+          </div>
+
           <div class="home-buttons">
             <button id="startGameButton">開始遊戲</button>
 
             <button id="settingsButton" class="secondary-button">設定</button>
           </div>
-        </div>
-
-        <div id="mobileControlSetting" class="setting-group">
-          <h3>Mobile Control</h3>
-
-          <label>
-            <input type="radio" name="mobileControl" value="BUTTONS" checked />
-            Arrow Buttons
-          </label>
-
-          <label>
-            <input type="radio" name="mobileControl" value="SWIPE" />
-            Swipe
-          </label>
         </div>
       </section>
 
@@ -158,9 +163,9 @@
           <h1>GAME OVER</h1>
 
           <div class="final-score">
-            <span class="score-label"> Score </span>
+            <span class="score-label">Score</span>
 
-            <span id="finalScore"> 0 </span>
+            <span id="finalScore">0</span>
           </div>
 
           <div class="game-over-buttons">

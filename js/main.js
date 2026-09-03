@@ -14,12 +14,21 @@ import { startGame, stopGame, endGame } from "./game/gameLoop.js";
 
 import { initializeInput } from "./input/inputManager.js";
 
+import { updateMobileControls } from "./ui/mobileControls.js";
+
 // ====================
 // Device
 // ====================
 
 game.deviceType = detectDeviceType();
+
 console.log(`Device Type: ${game.deviceType}`);
+
+// 用實際裝置類型控制 Mobile UI
+document.body.classList.toggle(
+  "mobile-device",
+  game.deviceType === DEVICE_TYPES.MOBILE,
+);
 
 initializeDeviceSettings();
 
@@ -68,6 +77,10 @@ document.getElementById("startGameButton").addEventListener("click", () => {
     game.boardSize = Number(selectedBoardSize);
   }
 
+  // ====================
+  // Mobile Control
+  // ====================
+
   const selectedMobileControl = document.querySelector(
     'input[name="mobileControl"]:checked',
   );
@@ -75,6 +88,13 @@ document.getElementById("startGameButton").addEventListener("click", () => {
   if (selectedMobileControl) {
     game.mobileControl = selectedMobileControl.value;
   }
+
+  // 套用玩家剛選擇的 Mobile Control
+  updateMobileControls();
+
+  // ====================
+  // Start
+  // ====================
 
   startGame();
 });
