@@ -2,20 +2,88 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snake Game</title>
 
-    <link rel="style" href="css/style.css" />
+    <title>🐍 Snake Game</title>
+
+    <link rel="stylesheet" href="css/style.css" />
   </head>
+
   <body>
-    <main class="game-container">
-      <h1>🐍 Snake Game</h1>
+    <main>
+      <!-- ==================== -->
+      <!-- Home -->
+      <!-- ==================== -->
 
-      <div class="score">Score: <span id="score">0</span></div>
+      <section id="homeScreen" class="screen">
+        <h2>首頁</h2>
 
-      <canvas id="gameCanvas" width="600" height="600"> </canvas>
+        <div>
+          <h3>遊戲模式</h3>
+
+          <label>
+            <input type="radio" name="gameMode" value="NORMAL" checked />
+            普通模式
+          </label>
+
+          <label>
+            <input type="radio" name="gameMode" value="INVINCIBLE" />
+            無敵模式
+          </label>
+        </div>
+
+        <button id="startGameButton">開始遊戲</button>
+
+        <button id="settingsButton">設定</button>
+      </section>
+
+      <!-- ==================== -->
+      <!-- Game -->
+      <!-- ==================== -->
+
+      <section id="gameScreen" class="screen">
+        <h1>🐍 Snake Game</h1>
+
+        <div class="score">
+          Score:
+          <span id="score">0</span>
+        </div>
+
+        <canvas id="gameCanvas" width="600" height="600"> </canvas>
+
+        <button id="endGameButton">結束遊戲</button>
+      </section>
+
+      <!-- ==================== -->
+      <!-- Settings -->
+      <!-- ==================== -->
+
+      <section id="settingsScreen" class="screen">
+        <h1>設定</h1>
+
+        <button id="settingsBackButton">返回首頁</button>
+      </section>
+
+      <!-- ==================== -->
+      <!-- Game Over -->
+      <!-- ==================== -->
+
+      <section id="gameOverScreen" class="screen">
+        <h1>GAME OVER</h1>
+
+        <p>
+          Score:
+          <span id="finalScore">0</span>
+        </p>
+
+        <button id="restartButton">再玩一次</button>
+
+        <button id="homeButton">回首頁</button>
+      </section>
     </main>
 
-    <script src="js/game.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>
+F
