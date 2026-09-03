@@ -49,6 +49,22 @@ document.getElementById("settingsButton").addEventListener("click", () => {
   navigateTo(GAME_STATES.SETTINGS);
 });
 
+document
+    .getElementById("saveSettingsButton")
+    .addEventListener("click", () => {
+
+        const selectedSpeed =
+            document.querySelector(
+                'input[name="gameSpeed"]:checked'
+            ).value;
+
+        game.speed = selectedSpeed;
+
+        navigateTo(
+            GAME_STATES.HOME
+        );
+    });
+
 // ====================
 // Settings → Home
 // ====================

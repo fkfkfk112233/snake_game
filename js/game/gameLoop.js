@@ -1,4 +1,9 @@
-import { game, GAME_STATES, setGameState, resetGameState } from "../state/gameState.js";
+import {
+  game,
+  GAME_STATES,
+  setGameState,
+  resetGameState,
+} from "../state/gameState.js";
 
 import { moveSnake, applySnakeMove, initializeSnake } from "./snake.js";
 
@@ -19,20 +24,22 @@ export function startGame() {
   // 避免重複建立遊戲計時器
   stopGame();
 
-  game.score = 0;
-  game.direction = "RIGHT";
-  game.gameOver = false;
-
+  // 重置上一局遊戲資料
   resetGameState();
 
+  // 建立新的 Snake 與 Food
   initializeGame();
 
+  console.log(game.snake);
+
   setGameState(GAME_STATES.GAME);
+
   renderScreen();
 
   renderGame();
 
-  gameTimer = setInterval(updateGame, 150);
+  // 遊戲開始後才建立 Timer
+  gameTimer = setInterval(updateGame, getGameSpeed());
 }
 
 function initializeGame() {
@@ -119,4 +126,20 @@ export function stopGame() {
 
     gameTimer = null;
   }
+}
+
+// =========================
+// 遊戲速度
+// =========================
+
+function getGameSpeed() {
+  if (game.speed === "SLOW") {
+    return 300;
+  }
+
+  if (game.speed === "FAST") {
+    return 75;
+  }
+
+  return 150;
 }

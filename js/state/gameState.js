@@ -12,6 +12,8 @@ export const game = {
 
   boardSize: 30,
 
+  speed: "NORMAL",
+
   score: 0,
 
   snake: [],
