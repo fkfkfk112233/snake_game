@@ -71,14 +71,20 @@
       <section id="gameScreen" class="screen">
         <h1>🐍 Snake Game</h1>
 
-        <div class="score">
-          Score:
-          <span id="score">0</span>
+        <div class="game-header">
+          <div class="game-info">
+            <div class="score">
+              Score:
+              <span id="score">0</span>
+            </div>
+
+            <button id="endGameButton">離開遊戲</button>
+          </div>
         </div>
 
-        <canvas id="gameCanvas" width="600" height="600"> </canvas>
-
-        <button id="endGameButton">結束遊戲</button>
+        <div class="canvas-container">
+          <canvas id="gameCanvas" width="600" height="600"> </canvas>
+        </div>
       </section>
 
       <!-- ==================== -->

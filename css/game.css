@@ -3,22 +3,38 @@
 }
 
 .game-container {
-    width: min(90vw, 700px);
+    width: min(90vw, 640px);
     margin: 0 auto;
     padding: 20px;
 }
 
-.game-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    margin-bottom: 15px;
+/* =========================
+   Game Header
+   ========================= */
+
+.game-header {
+    width: min(90vw, 600px);
+    margin: 0 auto 15px;
+    text-align: center;
 }
 
 .game-header h1 {
-    margin: 0;
+    margin: 0 0 15px;
     font-size: 28px;
+}
+
+
+/* =========================
+   Score + Exit Button
+   ========================= */
+
+.game-info {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .score {
@@ -26,14 +42,38 @@
     font-weight: bold;
 }
 
+#endGameButton {
+    display: none;
+
+    position: absolute;
+
+    right: 0;
+
+    width: auto;
+
+    margin: 0;
+
+    padding: 7px 14px;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   Canvas
+   ========================= */
+
 .canvas-container {
     width: 100%;
+
     display: flex;
     justify-content: center;
 }
 
 #gameCanvas {
-    width: min(90vw, 600px);
+    width: 100%;
+    max-width: 600px;
+
     height: auto;
 
     aspect-ratio: 1 / 1;
@@ -45,13 +85,10 @@
     border: 2px solid white;
 }
 
-.game-controls {
-    margin-top: 20px;
-}
 
-.game-controls button {
-    min-width: 150px;
-}
+/* =========================
+   Game Over
+   ========================= */
 
 .game-over-screen {
     width: 100%;
