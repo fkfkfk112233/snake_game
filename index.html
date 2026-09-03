@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/home.css" />
     <link rel="stylesheet" href="css/game.css" />
     <link rel="stylesheet" href="css/setting.css" />
+    <link rel="stylesheet" href="css/mobile.css">
   </head>
 
   <body>
@@ -37,7 +38,7 @@
             </label>
           </div>
 
-          <div class="setting-group">
+          <div id="boardSizeSetting" class="setting-group">
             <h3>Board Size</h3>
 
             <label class="option">
@@ -84,6 +85,16 @@
 
         <div class="canvas-container">
           <canvas id="gameCanvas" width="600" height="600"> </canvas>
+
+          <div id="mobileControls" class="mobile-controls">
+            <button id="upButton" class="control-button">↑</button>
+
+            <div class="control-row">
+              <button id="leftButton" class="control-button">←</button>
+              <button id="downButton" class="control-button">↓</button>
+              <button id="rightButton" class="control-button">→</button>
+            </div>
+          </div>
         </div>
       </section>
 

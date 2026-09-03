@@ -1,17 +1,37 @@
 import {
   game,
   GAME_STATES,
+  BOARD_SIZES,
   setGameState,
   resetGameState,
 } from "./state/gameState.js";
+
+import { DEVICE_TYPES, detectDeviceType } from "./device/deviceDetector.js";
 
 import { renderScreen } from "./ui/screenManager.js";
 
 import { startGame, stopGame, endGame } from "./game/gameLoop.js";
 
-import { initializeInput } from "./game/input.js";
+import { initializeInput } from "./input/inputManager.js";
+
+// ====================
+// Device
+// ====================
+
+game.deviceType = detectDeviceType();
+console.log(`Device Type: ${game.deviceType}`);
+
+initializeDeviceSettings();
+
+// ====================
+// Input
+// ====================
 
 initializeInput();
+
+// ====================
+// Navigation
+// ====================
 
 function navigateTo(state) {
   stopGame();
@@ -30,13 +50,23 @@ document.getElementById("startGameButton").addEventListener("click", () => {
     'input[name="gameMode"]:checked',
   ).value;
 
-  const selectedBoardSize = document.querySelector(
-    'input[name="boardSize"]:checked',
-  ).value;
-
   game.mode = selectedMode;
 
-  game.boardSize = Number(selectedBoardSize);
+  // ====================
+  // Board Size
+  // ====================
+
+  if (game.deviceType === DEVICE_TYPES.MOBILE) {
+    // Mobile 固定 20 × 20
+    game.boardSize = BOARD_SIZES.MOBILE;
+  } else {
+    // Desktop 使用玩家選擇
+    const selectedBoardSize = document.querySelector(
+      'input[name="boardSize"]:checked',
+    ).value;
+
+    game.boardSize = Number(selectedBoardSize);
+  }
 
   startGame();
 });
@@ -88,18 +118,40 @@ document.getElementById("restartButton").addEventListener("click", () => {
 });
 
 // ====================
+// End Game
+// ====================
+
+document.getElementById("endGameButton").addEventListener("click", () => {
+  endGame();
+});
+
+// ====================
 // Initial Screen
 // ====================
 
 renderScreen();
 
 // ====================
-// End Game Button
+// Device Settings
 // ====================
 
-document.getElementById("endGameButton").addEventListener("click", () => {
-  endGame();
-});
+function initializeDeviceSettings() {
+  const boardSizeSetting = document.getElementById("boardSizeSetting");
+
+  if (!boardSizeSetting) {
+    return;
+  }
+
+  if (game.deviceType === DEVICE_TYPES.MOBILE) {
+    boardSizeSetting.style.display = "none";
+
+    game.boardSize = BOARD_SIZES.MOBILE;
+  }
+}
+
+// ====================
+// Settings Renderer
+// ====================
 
 function renderSettings() {
   const speedRadio = document.querySelector(

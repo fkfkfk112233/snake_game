@@ -5,12 +5,19 @@ export const GAME_STATES = {
   GAME_OVER: "GAME_OVER",
 };
 
+export const BOARD_SIZES = {
+  MOBILE: 20,
+  DEFAULT: 30,
+};
+
 export const game = {
   screen: GAME_STATES.HOME,
 
+  deviceType: null,
+
   mode: "NORMAL",
 
-  boardSize: 30,
+  boardSize: BOARD_SIZES.DEFAULT,
 
   speed: "NORMAL",
 
