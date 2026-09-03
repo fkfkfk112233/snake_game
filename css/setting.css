@@ -1,0 +1,22 @@
+.settings-screen {
+    width: 100%;
+}
+
+.settings-container {
+    width: 360px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.settings-container h1 {
+    margin-bottom: 40px;
+    font-size: 36px;
+}
+
+.settings-buttons {
+    margin-top: 30px;
+}
+
+.settings-buttons button {
+    width: 100%;
+}

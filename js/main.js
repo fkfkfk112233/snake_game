@@ -46,24 +46,20 @@ document.getElementById("startGameButton").addEventListener("click", () => {
 // ====================
 
 document.getElementById("settingsButton").addEventListener("click", () => {
+  renderSettings();
+
   navigateTo(GAME_STATES.SETTINGS);
 });
 
-document
-    .getElementById("saveSettingsButton")
-    .addEventListener("click", () => {
+document.getElementById("saveSettingsButton").addEventListener("click", () => {
+  const selectedSpeed = document.querySelector(
+    'input[name="gameSpeed"]:checked',
+  ).value;
 
-        const selectedSpeed =
-            document.querySelector(
-                'input[name="gameSpeed"]:checked'
-            ).value;
+  game.speed = selectedSpeed;
 
-        game.speed = selectedSpeed;
-
-        navigateTo(
-            GAME_STATES.HOME
-        );
-    });
+  navigateTo(GAME_STATES.HOME);
+});
 
 // ====================
 // Settings → Home
@@ -117,3 +113,13 @@ document.getElementById("endGameButton").addEventListener("click", () => {
 
   renderScreen();
 });
+
+function renderSettings() {
+  const speedRadio = document.querySelector(
+    `input[name="gameSpeed"][value="${game.speed}"]`,
+  );
+
+  if (speedRadio) {
+    speedRadio.checked = true;
+  }
+}

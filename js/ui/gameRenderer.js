@@ -17,10 +17,10 @@ export function renderGame() {
 }
 
 function drawGrid(ctx, cellSize) {
+  ctx.strokeStyle = "#333";
+
   for (let x = 0; x < game.boardSize; x++) {
     for (let y = 0; y < game.boardSize; y++) {
-      ctx.strokeStyle = "#333";
-
       ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
     }
   }
