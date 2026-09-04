@@ -18,55 +18,29 @@ export function initializeMobileControls() {
     return;
   }
 
-  upButton.addEventListener("click", () => {
-    if (!canUseMobileControls()) {
-      return;
-    }
+  upButton.addEventListener("click", () => handleButtonDirection("UP"));
 
-    changeDirection("UP");
-  });
+  downButton.addEventListener("click", () => handleButtonDirection("DOWN"));
 
-  downButton.addEventListener("click", () => {
-    if (!canUseMobileControls()) {
-      return;
-    }
+  leftButton.addEventListener("click", () => handleButtonDirection("LEFT"));
 
-    changeDirection("DOWN");
-  });
+  rightButton.addEventListener("click", () => handleButtonDirection("RIGHT"));
+}
 
-  leftButton.addEventListener("click", () => {
-    if (!canUseMobileControls()) {
-      return;
-    }
+function handleButtonDirection(direction) {
+  if (!canUseMobileControls()) {
+    return;
+  }
 
-    changeDirection("LEFT");
-  });
-
-  rightButton.addEventListener("click", () => {
-    if (!canUseMobileControls()) {
-      return;
-    }
-
-    changeDirection("RIGHT");
-  });
+  changeDirection(direction);
 }
 
 function canUseMobileControls() {
-  if (game.screen !== GAME_STATES.GAME) {
-    return false;
-  }
-
-  // Desktop 不允許使用 Mobile Button
-  if (game.deviceType !== DEVICE_TYPES.MOBILE) {
-    return false;
-  }
-
-  // 只有 Button 模式可以使用
-  if (game.mobileControl !== MOBILE_CONTROLS.BUTTONS) {
-    return false;
-  }
-
-  return true;
+  return (
+    game.screen === GAME_STATES.GAME &&
+    game.deviceType === DEVICE_TYPES.MOBILE &&
+    game.mobileControl === MOBILE_CONTROLS.BUTTONS
+  );
 }
 
 export function updateMobileControls() {
