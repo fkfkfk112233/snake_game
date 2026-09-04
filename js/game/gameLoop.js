@@ -47,7 +47,7 @@ function initializeGame() {
 }
 
 function updateGame() {
-  if (game.gameOver) {
+  if (game.screen !== GAME_STATES.GAME) {
     return;
   }
 
@@ -107,13 +107,11 @@ function updateGame() {
 }
 
 export function endGame() {
-  game.gameOver = true;
-
   stopGame();
 
-  document.getElementById("finalScore").textContent = game.score;
-
   setGameState(GAME_STATES.GAME_OVER);
+
+  document.getElementById("finalScore").textContent = game.score;
 
   renderScreen();
 }
