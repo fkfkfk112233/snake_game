@@ -12,6 +12,11 @@
   display: none;
 }
 
+/* Desktop 不顯示 Mobile 遊戲方向設定 */
+#mobileOrientationSetting {
+  display: none;
+}
+
 
 /* =========================
    Mobile
@@ -29,6 +34,10 @@
 
   /* Mobile 設定 */
   .mobile-device #mobileControlSetting {
+    display: block;
+  }
+
+  .mobile-device #mobileOrientationSetting {
     display: block;
   }
 
@@ -71,11 +80,9 @@
   }
 
   #gameCanvas {
-    width: min(
-      90vw,
-      360px,
-      calc(100dvh - 220px)
-    );
+    width: min(90vw,
+        360px,
+        calc(100dvh - 220px));
 
     height: auto;
     max-width: 360px;
