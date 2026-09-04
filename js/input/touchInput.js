@@ -1,4 +1,8 @@
-import { game, GAME_STATES, MOBILE_CONTROLS } from "../state/gameState.js";
+import {
+  game,
+  GAME_STATES,
+  MOBILE_CONTROLS,
+} from "../state/gameState.js";
 
 import { DEVICE_TYPES } from "../device/deviceDetector.js";
 
@@ -7,7 +11,9 @@ import { changeDirection } from "./directionController.js";
 let startX = 0;
 let startY = 0;
 
-const SWIPE_THRESHOLD = 30;
+const MIN_SWIPE_THRESHOLD = 20;
+const MAX_SWIPE_THRESHOLD = 50;
+const SWIPE_RATIO = 0.08;
 
 export function initializeTouchInput() {
   const gameScreen = document.getElementById("gameScreen");
@@ -68,7 +74,9 @@ function handleTouchEnd(event) {
   const absX = Math.abs(deltaX);
   const absY = Math.abs(deltaY);
 
-  if (Math.max(absX, absY) < SWIPE_THRESHOLD) {
+  const swipeThreshold = getSwipeThreshold();
+
+  if (Math.max(absX, absY) < swipeThreshold) {
     return;
   }
 
@@ -85,4 +93,16 @@ function handleTouchEnd(event) {
       changeDirection("UP");
     }
   }
+}
+
+function getSwipeThreshold() {
+  const screenSize = Math.min(
+    window.innerWidth,
+    window.innerHeight,
+  );
+
+  return Math.max(
+    MIN_SWIPE_THRESHOLD,
+    Math.min(screenSize * SWIPE_RATIO, MAX_SWIPE_THRESHOLD),
+  );
 }
