@@ -2,6 +2,8 @@ import { game, GAME_STATES, MOBILE_CONTROLS } from "../state/gameState.js";
 
 import { DEVICE_TYPES } from "../device/deviceDetector.js";
 
+import { changeDirection } from "./directionController.js";
+
 let startX = 0;
 let startY = 0;
 
@@ -82,23 +84,5 @@ function handleTouchEnd(event) {
     } else {
       changeDirection("UP");
     }
-  }
-}
-
-function changeDirection(direction) {
-  if (direction === "UP" && game.direction !== "DOWN") {
-    game.direction = "UP";
-  }
-
-  if (direction === "DOWN" && game.direction !== "UP") {
-    game.direction = "DOWN";
-  }
-
-  if (direction === "LEFT" && game.direction !== "RIGHT") {
-    game.direction = "LEFT";
-  }
-
-  if (direction === "RIGHT" && game.direction !== "LEFT") {
-    game.direction = "RIGHT";
   }
 }
