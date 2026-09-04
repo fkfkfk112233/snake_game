@@ -43,8 +43,6 @@ initializeInput();
 // ====================
 
 function navigateTo(state) {
-  stopGame();
-
   setGameState(state);
 
   renderScreen();
