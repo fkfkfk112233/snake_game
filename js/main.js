@@ -132,8 +132,6 @@ document.getElementById("settingsBackButton").addEventListener("click", () => {
 // ====================
 
 document.getElementById("homeButton").addEventListener("click", () => {
-  resetGameState();
-
   navigateTo(GAME_STATES.HOME);
 });
 
