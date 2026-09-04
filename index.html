@@ -1,182 +1,193 @@
 <!doctype html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>🐍 Snake Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/home.css" />
-    <link rel="stylesheet" href="css/game.css" />
-    <link rel="stylesheet" href="css/setting.css" />
-    <link rel="stylesheet" href="css/mobile.css" />
-  </head>
+  <title>🐍 Snake Game</title>
 
-  <body>
-    <main>
-      <!-- ==================== -->
-      <!-- Home -->
-      <!-- ==================== -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/game.css" />
+  <link rel="stylesheet" href="css/setting.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+</head>
 
-      <section id="homeScreen" class="screen home-screen">
-        <div class="home-container">
-          <h1 class="game-title">🐍 Snake Game</h1>
+<body>
+  <main>
+    <!-- ==================== -->
+    <!-- Home -->
+    <!-- ==================== -->
 
-          <div class="setting-group">
-            <h3>遊戲模式</h3>
+    <section id="homeScreen" class="screen home-screen">
+      <div class="home-container">
+        <h1 class="game-title">🐍 Snake Game</h1>
 
-            <label class="option">
-              <input type="radio" name="gameMode" value="NORMAL" checked />
-              <span>普通模式</span>
-            </label>
+        <div class="setting-group">
+          <h3>遊戲模式</h3>
 
-            <label class="option">
-              <input type="radio" name="gameMode" value="INVINCIBLE" />
-              <span>無敵模式</span>
-            </label>
-          </div>
+          <label class="option">
+            <input type="radio" name="gameMode" value="NORMAL" checked />
+            <span>普通模式</span>
+          </label>
 
-          <div id="boardSizeSetting" class="setting-group">
-            <h3>Board Size</h3>
-
-            <label class="option">
-              <input type="radio" name="boardSize" value="20" />
-              <span>20 × 20</span>
-            </label>
-
-            <label class="option">
-              <input type="radio" name="boardSize" value="30" checked />
-              <span>30 × 30</span>
-            </label>
-
-            <label class="option">
-              <input type="radio" name="boardSize" value="40" />
-              <span>40 × 40</span>
-            </label>
-          </div>
-
-          <div id="mobileControlSetting" class="setting-group">
-            <h3>Mobile Control</h3>
-
-            <label class="option">
-              <input
-                type="radio"
-                name="mobileControl"
-                value="BUTTONS"
-                checked
-              />
-              <span>Arrow Buttons</span>
-            </label>
-
-            <label class="option">
-              <input type="radio" name="mobileControl" value="SWIPE" />
-              <span>Swipe</span>
-            </label>
-          </div>
-
-          <div class="home-buttons">
-            <button id="startGameButton">開始遊戲</button>
-
-            <button id="settingsButton" class="secondary-button">設定</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==================== -->
-      <!-- Game -->
-      <!-- ==================== -->
-
-      <section id="gameScreen" class="screen">
-        <h1>🐍 Snake Game</h1>
-
-        <div class="game-header">
-          <div class="game-info">
-            <div class="score">
-              Score:
-              <span id="score">0</span>
-            </div>
-
-            <button id="endGameButton">離開遊戲</button>
-          </div>
+          <label class="option">
+            <input type="radio" name="gameMode" value="INVINCIBLE" />
+            <span>無敵模式</span>
+          </label>
         </div>
 
-        <div class="canvas-container">
-          <canvas id="gameCanvas" width="600" height="600"></canvas>
+        <div id="boardSizeSetting" class="setting-group">
+          <h3>Board Size</h3>
+
+          <label class="option">
+            <input type="radio" name="boardSize" value="20" />
+            <span>20 × 20</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="boardSize" value="30" checked />
+            <span>30 × 30</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="boardSize" value="40" />
+            <span>40 × 40</span>
+          </label>
         </div>
 
-        <div id="mobileControls" class="mobile-controls">
-          <button id="upButton" class="control-button">↑</button>
+        <div id="mobileControlSetting" class="setting-group">
+          <h3>Mobile Control</h3>
 
-          <div class="control-row">
-            <button id="leftButton" class="control-button">←</button>
-            <button id="downButton" class="control-button">↓</button>
-            <button id="rightButton" class="control-button">→</button>
-          </div>
+          <label class="option">
+            <input type="radio" name="mobileControl" value="BUTTONS" checked />
+            <span>Arrow Buttons</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="mobileControl" value="SWIPE" />
+            <span>Swipe</span>
+          </label>
         </div>
-      </section>
 
-      <!-- ==================== -->
-      <!-- Settings -->
-      <!-- ==================== -->
+        <div class="home-buttons">
+          <button id="startGameButton">開始遊戲</button>
 
-      <section id="settingsScreen" class="screen settings-screen">
-        <div class="settings-container">
-          <h1>⚙️ 設定</h1>
-
-          <div class="setting-group">
-            <h3>遊戲速度</h3>
-
-            <label class="option">
-              <input type="radio" name="gameSpeed" value="SLOW" />
-              <span>慢</span>
-            </label>
-
-            <label class="option">
-              <input type="radio" name="gameSpeed" value="NORMAL" checked />
-              <span>普通</span>
-            </label>
-
-            <label class="option">
-              <input type="radio" name="gameSpeed" value="FAST" />
-              <span>快</span>
-            </label>
-          </div>
-
-          <div class="settings-buttons">
-            <button id="saveSettingsButton">儲存設定</button>
-
-            <button id="settingsBackButton" class="secondary-button">
-              返回首頁
-            </button>
-          </div>
+          <button id="settingsButton" class="secondary-button">設定</button>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ==================== -->
-      <!-- Game Over -->
-      <!-- ==================== -->
+    <!-- ==================== -->
+    <!-- Game -->
+    <!-- ==================== -->
 
-      <section id="gameOverScreen" class="screen game-over-screen">
-        <div class="game-over-container">
-          <h1>GAME OVER</h1>
+    <section id="gameScreen" class="screen">
+      <h1>🐍 Snake Game</h1>
 
-          <div class="final-score">
-            <span class="score-label">Score</span>
-
-            <span id="finalScore">0</span>
+      <div class="game-header">
+        <div class="game-info">
+          <div class="score">
+            Score:
+            <span id="score">0</span>
           </div>
 
-          <div class="game-over-buttons">
-            <button id="restartButton">再玩一次</button>
-
-            <button id="homeButton" class="secondary-button">回首頁</button>
-          </div>
+          <button id="endGameButton">離開遊戲</button>
         </div>
-      </section>
-    </main>
+      </div>
 
-    <script type="module" src="js/main.js"></script>
-  </body>
+      <div class="canvas-container">
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+      </div>
+
+      <div id="mobileControls" class="mobile-controls">
+        <button id="upButton" class="control-button">↑</button>
+
+        <div class="control-row">
+          <button id="leftButton" class="control-button">←</button>
+          <button id="downButton" class="control-button">↓</button>
+          <button id="rightButton" class="control-button">→</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== -->
+    <!-- Settings -->
+    <!-- ==================== -->
+
+    <section id="settingsScreen" class="screen settings-screen">
+      <div class="settings-container">
+        <h1>⚙️ 設定</h1>
+
+        <div class="setting-group">
+          <h3>遊戲速度</h3>
+
+          <label class="option">
+            <input type="radio" name="gameSpeed" value="SLOW" />
+            <span>慢</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="gameSpeed" value="NORMAL" checked />
+            <span>普通</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="gameSpeed" value="FAST" />
+            <span>快</span>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <h3>遊戲方向</h3>
+
+          <label class="option">
+            <input type="radio" name="gameOrientation" value="PORTRAIT" checked />
+            <span>直立</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="gameOrientation" value="LANDSCAPE" />
+            <span>橫向</span>
+          </label>
+        </div>
+
+        <div class="settings-buttons">
+          <button id="saveSettingsButton">儲存設定</button>
+
+          <button id="settingsBackButton" class="secondary-button">
+            返回首頁
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== -->
+    <!-- Game Over -->
+    <!-- ==================== -->
+
+    <section id="gameOverScreen" class="screen game-over-screen">
+      <div class="game-over-container">
+        <h1>GAME OVER</h1>
+
+        <div class="final-score">
+          <span class="score-label">Score</span>
+
+          <span id="finalScore">0</span>
+        </div>
+
+        <div class="game-over-buttons">
+          <button id="restartButton">再玩一次</button>
+
+          <button id="homeButton" class="secondary-button">回首頁</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+
 </html>
