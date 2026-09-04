@@ -26,7 +26,6 @@ export const game = {
   snake: [],
   food: { x: 0, y: 0 },
   direction: "RIGHT",
-  gameOver: false,
 };
 
 export function setGameState(newState) {
@@ -45,5 +44,4 @@ export function resetGameState() {
     y: 0,
   };
   game.direction = "RIGHT";
-  game.gameOver = false;
 }
