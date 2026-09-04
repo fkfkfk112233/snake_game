@@ -15,6 +15,11 @@ export const MOBILE_CONTROLS = {
   SWIPE: "SWIPE",
 };
 
+export const GAME_ORIENTATIONS = {
+  PORTRAIT: "PORTRAIT",
+  LANDSCAPE: "LANDSCAPE",
+};
+
 export const game = {
   screen: GAME_STATES.HOME,
   deviceType: null,
@@ -22,6 +27,7 @@ export const game = {
   boardSize: BOARD_SIZES.DEFAULT,
   speed: "NORMAL",
   mobileControl: MOBILE_CONTROLS.BUTTONS,
+  orientation: GAME_ORIENTATIONS.PORTRAIT,
   score: 0,
   snake: [],
   food: { x: 0, y: 0 },
