@@ -114,6 +114,14 @@ document.getElementById("saveSettingsButton").addEventListener("click", () => {
 
   game.speed = selectedSpeed;
 
+  const selectedOrientation = document.querySelector(
+    'input[name="gameOrientation"]:checked',
+  );
+
+  if (selectedOrientation) {
+    game.orientation = selectedOrientation.value;
+  }
+
   navigateTo(GAME_STATES.HOME);
 });
 
