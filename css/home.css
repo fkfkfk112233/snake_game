@@ -18,3 +18,7 @@
 .home-buttons button {
   width: 100%;
 }
+
+.mode-setting {
+  display: none;
+}
