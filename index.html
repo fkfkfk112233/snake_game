@@ -36,6 +36,35 @@
               <input type="radio" name="gameMode" value="INVINCIBLE" />
               <span>無敵模式</span>
             </label>
+
+            <label class="option">
+              <input type="radio" name="gameMode" value="TIME" />
+              <span>時間模式</span>
+            </label>
+
+            <label class="option">
+              <input type="radio" name="gameMode" value="FOOD_FRENZY" />
+              <span>Food Frenzy</span>
+            </label>
+          </div>
+
+          <div id="timeModeSetting" class="setting-group mode-setting">
+            <h3>時間</h3>
+
+            <label class="option">
+              <input type="radio" name="timeLimit" value="3" checked />
+              <span>3 分鐘</span>
+            </label>
+
+            <label class="option">
+              <input type="radio" name="timeLimit" value="5" />
+              <span>5 分鐘</span>
+            </label>
+
+            <label class="option">
+              <input type="radio" name="timeLimit" value="10" />
+              <span>10 分鐘</span>
+            </label>
           </div>
 
           <div class="home-buttons">
@@ -59,6 +88,8 @@
               Score:
               <span id="score">0</span>
             </div>
+
+            <div id="gameStatus" class="game-status"></div>
 
             <button id="endGameButton">離開遊戲</button>
           </div>
@@ -183,7 +214,9 @@
 
       <section id="gameOverScreen" class="screen game-over-screen">
         <div class="game-over-container">
-          <h1>GAME OVER</h1>
+          <h1 id="resultTitle">GAME OVER</h1>
+
+          <div id="resultMessage" class="result-message">遊戲結束</div>
 
           <div class="final-score">
             <span class="score-label">Score</span>
@@ -195,6 +228,30 @@
             <button id="restartButton">再玩一次</button>
 
             <button id="homeButton" class="secondary-button">回首頁</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== -->
+      <!-- Win -->
+      <!-- ==================== -->
+
+      <section id="winScreen" class="screen game-over-screen">
+        <div class="game-over-container">
+          <h1 id="winTitle">YOU WIN!</h1>
+
+          <div id="winMessage" class="result-message">完成遊戲</div>
+
+          <div class="final-score">
+            <span class="score-label">Score</span>
+
+            <span id="winFinalScore">0</span>
+          </div>
+
+          <div class="game-over-buttons">
+            <button id="winRestartButton">再玩一次</button>
+
+            <button id="winHomeButton" class="secondary-button">回首頁</button>
           </div>
         </div>
       </section>
