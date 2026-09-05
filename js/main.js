@@ -9,12 +9,12 @@ import {
 import { DEVICE_TYPES, detectDeviceType } from "./device/deviceDetector.js";
 
 import { renderScreen } from "./ui/screenManager.js";
+import { updateMobileControls } from "./ui/mobileControls.js";
 
 import { startGame, stopGame, endGame } from "./game/gameLoop.js";
 
 import { initializeInput } from "./input/inputManager.js";
-
-import { updateMobileControls } from "./ui/mobileControls.js";
+import { unlockGameOrientation } from "./input/orientationController.js";
 
 // ====================
 // Device
@@ -138,6 +138,8 @@ document.getElementById("settingsBackButton").addEventListener("click", () => {
 // ====================
 
 document.getElementById("homeButton").addEventListener("click", () => {
+  stopGame();
+  unlockGameOrientation();
   navigateTo(GAME_STATES.HOME);
 });
 
