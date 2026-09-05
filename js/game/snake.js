@@ -1,10 +1,13 @@
 import { game } from "../state/gameState.js";
 
 export function initializeSnake() {
+  // 以棋盤中心作為 Snake 初始位置，避免依賴固定座標
+  const center = Math.floor(game.boardSize / 2);
+
   game.snake = [
-    { x: 5, y: 5 },
-    { x: 4, y: 5 },
-    { x: 3, y: 5 },
+    { x: center, y: center },
+    { x: center - 1, y: center },
+    { x: center - 2, y: center },
   ];
 }
 
