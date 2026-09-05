@@ -24,8 +24,16 @@ import {
 } from "../input/orientationController.js";
 
 let gameTimer = null;
+let startingGame = false;
 
 export async function startGame() {
+  // 防止使用者在 Orientation Lock 等待期間重複啟動遊戲
+  if (startingGame) {
+    return;
+  }
+
+  startingGame = true;
+
   // 避免重複建立遊戲計時器
   stopGame();
 
@@ -40,10 +48,19 @@ export async function startGame() {
   renderScreen();
   renderGame();
 
-  // 嘗試套用玩家設定的遊戲方向
-  await lockGameOrientation();
+  try {
+    // 嘗試套用玩家設定的遊戲方向
+    await lockGameOrientation();
 
-  gameTimer = setInterval(updateGame, getGameSpeed());
+    // 如果玩家在等待 Orientation Lock 期間離開遊戲，不再啟動 Timer
+    if (game.screen !== GAME_STATES.GAME) {
+      return;
+    }
+
+    gameTimer = setInterval(updateGame, getGameSpeed());
+  } finally {
+    startingGame = false;
+  }
 }
 
 function initializeGame() {
@@ -113,6 +130,11 @@ function updateGame() {
 }
 
 export function endGame() {
+  // 只有正在進行遊戲時才能結束遊戲
+  if (game.screen !== GAME_STATES.GAME) {
+    return;
+  }
+
   stopGame();
 
   unlockGameOrientation();
