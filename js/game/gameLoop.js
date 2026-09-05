@@ -18,7 +18,10 @@ import {
 import { renderScreen } from "../ui/screenManager.js";
 import { renderGame } from "../ui/gameRenderer.js";
 
-import { lockGameOrientation } from "../input/orientationController.js";
+import {
+  lockGameOrientation,
+  unlockGameOrientation,
+} from "../input/orientationController.js";
 
 let gameTimer = null;
 
@@ -111,6 +114,8 @@ function updateGame() {
 
 export function endGame() {
   stopGame();
+
+  unlockGameOrientation();
 
   setGameState(GAME_STATES.GAME_OVER);
 
