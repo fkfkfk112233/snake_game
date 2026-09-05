@@ -1,6 +1,7 @@
 import {
   game,
   GAME_STATES,
+  GAME_MODES,
   BOARD_SIZES,
   setGameState,
 } from "./state/gameState.js";
@@ -58,6 +59,14 @@ document.getElementById("startGameButton").addEventListener("click", () => {
 
   game.mode = selectedMode;
 
+  const selectedTimeLimit = document.querySelector(
+    'input[name="timeLimit"]:checked',
+  );
+
+  if (selectedTimeLimit) {
+    game.timeLimit = Number(selectedTimeLimit.value);
+  }
+
   // Mobile 固定使用 20 × 20
   if (game.deviceType === DEVICE_TYPES.MOBILE) {
     game.boardSize = BOARD_SIZES.MOBILE;
@@ -71,6 +80,10 @@ document.getElementById("startGameButton").addEventListener("click", () => {
 // ====================
 // Settings
 // ====================
+
+document.querySelectorAll('input[name="gameMode"]').forEach((radio) => {
+  radio.addEventListener("change", updateModeSettings);
+});
 
 document.getElementById("settingsButton").addEventListener("click", () => {
   renderSettings();
@@ -167,10 +180,25 @@ document.getElementById("homeButton").addEventListener("click", () => {
 });
 
 // ====================
+// Win → Home
+// ====================
+
+document.getElementById("winHomeButton").addEventListener("click", () => {
+  stopGame();
+  unlockGameOrientation();
+
+  navigateTo(GAME_STATES.HOME);
+});
+
+// ====================
 // Game Over → Restart
 // ====================
 
 document.getElementById("restartButton").addEventListener("click", () => {
+  startGame();
+});
+
+document.getElementById("winRestartButton").addEventListener("click", () => {
   startGame();
 });
 
@@ -183,10 +211,30 @@ document.getElementById("endGameButton").addEventListener("click", () => {
 });
 
 // ====================
+// Game Mode UI
+// ====================
+
+function updateModeSettings() {
+  const selectedMode = document.querySelector(
+    'input[name="gameMode"]:checked',
+  )?.value;
+
+  const timeModeSetting = document.getElementById("timeModeSetting");
+
+  if (!timeModeSetting) {
+    return;
+  }
+
+  timeModeSetting.style.display =
+    selectedMode === GAME_MODES.TIME ? "block" : "none";
+}
+
+// ====================
 // Initial Screen
 // ====================
 
 renderScreen();
+updateModeSettings();
 
 // ====================
 // Device Settings
