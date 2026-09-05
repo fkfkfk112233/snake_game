@@ -3,7 +3,6 @@ import {
   GAME_STATES,
   BOARD_SIZES,
   setGameState,
-  resetGameState,
 } from "./state/gameState.js";
 
 import { DEVICE_TYPES, detectDeviceType } from "./device/deviceDetector.js";
