@@ -7,7 +7,7 @@ export const GAME_STATES = {
 
 export const BOARD_SIZES = {
   MOBILE: 20,
-  DEFAULT: 30,
+  DEFAULT: 20,
 };
 
 export const MOBILE_CONTROLS = {
