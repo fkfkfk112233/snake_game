@@ -18,9 +18,11 @@ import {
 import { renderScreen } from "../ui/screenManager.js";
 import { renderGame } from "../ui/gameRenderer.js";
 
+import { lockGameOrientation } from "../input/orientationController.js";
+
 let gameTimer = null;
 
-export function startGame() {
+export async function startGame() {
   // 避免重複建立遊戲計時器
   stopGame();
 
@@ -33,10 +35,11 @@ export function startGame() {
   setGameState(GAME_STATES.GAME);
 
   renderScreen();
-
   renderGame();
 
-  // 遊戲開始後才建立 Timer
+  // 嘗試套用玩家設定的遊戲方向
+  await lockGameOrientation();
+
   gameTimer = setInterval(updateGame, getGameSpeed());
 }
 
