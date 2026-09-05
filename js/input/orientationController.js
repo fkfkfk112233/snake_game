@@ -25,3 +25,21 @@ export async function lockGameOrientation() {
     console.warn("Unable to lock screen orientation:", error);
   }
 }
+
+export function unlockGameOrientation() {
+  // Desktop 不需要處理螢幕方向
+  if (game.deviceType !== DEVICE_TYPES.MOBILE) {
+    return;
+  }
+
+  // 瀏覽器不支援 Screen Orientation API
+  if (!screen.orientation || !screen.orientation.unlock) {
+    return;
+  }
+
+  try {
+    screen.orientation.unlock();
+  } catch (error) {
+    console.warn("Unable to unlock screen orientation:", error);
+  }
+}
