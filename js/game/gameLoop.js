@@ -1,17 +1,24 @@
 import {
   game,
   GAME_STATES,
+  GAME_MODES,
+  TIME_LIMITS,
   setGameState,
   resetGameState,
 } from "../state/gameState.js";
 
 import { moveSnake, applySnakeMove, initializeSnake } from "./snake.js";
 
-import { createFood } from "./food.js";
+import {
+  createFood,
+  removeFoodAt,
+  getFoodIndexAt,
+  getFoodLimitForCurrentMode,
+} from "./food.js";
 
 import {
   isWallCollision,
-  isFoodCollision,
+  getFoodCollisionIndex,
   isSelfCollision,
 } from "./collision.js";
 
@@ -24,40 +31,48 @@ import {
 } from "../input/orientationController.js";
 
 let gameTimer = null;
+let timeTimer = null;
+let foodTimer = null;
 let startingGame = false;
+let timeEndAt = null;
 
 export async function startGame() {
-  // 防止使用者在 Orientation Lock 等待期間重複啟動遊戲
   if (startingGame) {
     return;
   }
 
   startingGame = true;
 
-  // 避免重複建立遊戲計時器
   stopGame();
-
-  // 重置上一局遊戲資料
   resetGameState();
-
-  // 建立新的 Snake 與 Food
   initializeGame();
 
   setGameState(GAME_STATES.GAME);
+
+  if (game.mode === GAME_MODES.TIME) {
+    game.timeRemaining = TIME_LIMITS[String(game.timeLimit)] ?? TIME_LIMITS["3"];
+    timeEndAt = Date.now() + game.timeRemaining * 1000;
+  }
 
   renderScreen();
   renderGame();
 
   try {
-    // 嘗試套用玩家設定的遊戲方向
     await lockGameOrientation();
 
-    // 如果玩家在等待 Orientation Lock 期間離開遊戲，不再啟動 Timer
     if (game.screen !== GAME_STATES.GAME) {
       return;
     }
 
     gameTimer = setInterval(updateGame, getGameSpeed());
+
+    if (game.mode === GAME_MODES.TIME) {
+      timeTimer = setInterval(updateTime, 250);
+    }
+
+    if (game.mode === GAME_MODES.FOOD_FRENZY) {
+      foodTimer = setInterval(spawnFrenzyFood, 3000);
+    }
   } finally {
     startingGame = false;
   }
@@ -66,6 +81,7 @@ export async function startGame() {
 function initializeGame() {
   initializeSnake();
 
+  // 所有模式至少從一個 Food 開始。
   createFood();
 }
 
@@ -74,74 +90,111 @@ function updateGame() {
     return;
   }
 
-  // 計算蛇下一個位置
   const newHead = moveSnake();
 
-  // =========================
-  // 撞牆
-  // =========================
-
   if (isWallCollision(newHead)) {
-    // 普通模式 → Game Over
-    if (game.mode === "NORMAL") {
+    if (game.mode !== GAME_MODES.INVINCIBLE) {
       endGame();
       return;
     }
 
-    // 無敵模式 → 停在原地
     renderGame();
-
     return;
   }
 
-  // =========================
-  // 撞自己
-  // =========================
-
-  if (game.mode === "NORMAL" && isSelfCollision(newHead)) {
+  if (game.mode !== GAME_MODES.INVINCIBLE && isSelfCollision(newHead)) {
     endGame();
     return;
   }
 
-  // =========================
-  // 實際移動蛇
-  // =========================
-
   applySnakeMove(newHead);
 
-  // =========================
-  // 吃食物
-  // =========================
+  const foodIndex = getFoodIndexAt(newHead);
 
-  if (isFoodCollision(newHead)) {
+  if (foodIndex !== -1) {
     game.score += 10;
+    removeFoodAt(foodIndex);
 
+    // 吃到 Food 後立即補一個。
     createFood();
   } else {
-    // 沒吃到食物 → 移除尾巴
     game.snake.pop();
   }
 
-  // =========================
-  // 更新畫面
-  // =========================
+  // Snake 填滿整個棋盤即 WIN。
+  if (game.snake.length >= game.boardSize * game.boardSize) {
+    winGame("BOARD_COMPLETE");
+    return;
+  }
+
+  renderGame();
+}
+
+function spawnFrenzyFood() {
+  if (game.screen !== GAME_STATES.GAME) {
+    return;
+  }
+
+  if (game.mode !== GAME_MODES.FOOD_FRENZY) {
+    return;
+  }
+
+  if (game.foods.length < getFoodLimitForCurrentMode()) {
+    createFood();
+    renderGame();
+  }
+}
+
+function updateTime() {
+  if (game.screen !== GAME_STATES.GAME || game.mode !== GAME_MODES.TIME) {
+    return;
+  }
+
+  game.timeRemaining = Math.max(0, Math.ceil((timeEndAt - Date.now()) / 1000));
+
+  if (game.timeRemaining <= 0) {
+    game.timeRemaining = 0;
+    winGame("TIME_UP");
+    return;
+  }
 
   renderGame();
 }
 
 export function endGame() {
-  // 只有正在進行遊戲時才能結束遊戲
   if (game.screen !== GAME_STATES.GAME) {
     return;
   }
 
   stopGame();
-
   unlockGameOrientation();
 
   setGameState(GAME_STATES.GAME_OVER);
 
   document.getElementById("finalScore").textContent = game.score;
+  document.getElementById("resultTitle").textContent = "GAME OVER";
+  document.getElementById("resultMessage").textContent = "遊戲結束";
+
+  renderScreen();
+}
+
+export function winGame(reason = "BOARD_COMPLETE") {
+  if (game.screen !== GAME_STATES.GAME) {
+    return;
+  }
+
+  stopGame();
+  unlockGameOrientation();
+
+  game.winReason = reason;
+  setGameState(GAME_STATES.WIN);
+
+  document.getElementById("finalScore").textContent = game.score;
+  const winMessage = reason === "TIME_UP" ? "時間結束" : "棋盤已填滿";
+
+  document.getElementById("winFinalScore").textContent = game.score;
+  document.getElementById("winTitle").textContent = "YOU WIN!";
+  document.getElementById("winMessage").textContent = winMessage;
 
   renderScreen();
 }
@@ -149,14 +202,21 @@ export function endGame() {
 export function stopGame() {
   if (gameTimer !== null) {
     clearInterval(gameTimer);
-
     gameTimer = null;
   }
-}
 
-// =========================
-// 遊戲速度
-// =========================
+  if (timeTimer !== null) {
+    clearInterval(timeTimer);
+    timeTimer = null;
+  }
+
+  if (foodTimer !== null) {
+    clearInterval(foodTimer);
+    foodTimer = null;
+  }
+
+  timeEndAt = null;
+}
 
 function getGameSpeed() {
   if (game.speed === "SLOW") {

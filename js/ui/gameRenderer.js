@@ -1,4 +1,4 @@
-import { game } from "../state/gameState.js";
+import { game, GAME_MODES } from "../state/gameState.js";
 
 export function renderGame() {
   const canvas = document.getElementById("gameCanvas");
@@ -13,6 +13,7 @@ export function renderGame() {
   drawSnake(ctx, cellSize);
   drawFood(ctx, cellSize);
   updateScore();
+  updateGameStatus();
   updateEndGameButton();
 }
 
@@ -37,22 +38,51 @@ function drawSnake(ctx, cellSize) {
 function drawFood(ctx, cellSize) {
   ctx.fillStyle = "red";
 
-  ctx.fillRect(
-    game.food.x * cellSize,
-    game.food.y * cellSize,
-    cellSize,
-    cellSize,
-  );
+  for (const food of game.foods) {
+    ctx.fillRect(
+      food.x * cellSize,
+      food.y * cellSize,
+      cellSize,
+      cellSize,
+    );
+  }
 }
 
 function updateScore() {
   document.getElementById("score").textContent = game.score;
 }
 
+function updateGameStatus() {
+  const status = document.getElementById("gameStatus");
+
+  if (!status) {
+    return;
+  }
+
+  if (game.mode === GAME_MODES.TIME) {
+    status.textContent = `Time: ${formatTime(game.timeRemaining)}`;
+    return;
+  }
+
+  if (game.mode === GAME_MODES.FOOD_FRENZY) {
+    status.textContent = `Food: ${game.foods.length}`;
+    return;
+  }
+
+  status.textContent = "";
+}
+
+function formatTime(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
 function updateEndGameButton() {
   const button = document.getElementById("endGameButton");
 
-  if (game.mode === "INVINCIBLE") {
+  if (game.mode === GAME_MODES.INVINCIBLE) {
     button.style.display = "block";
   } else {
     button.style.display = "none";

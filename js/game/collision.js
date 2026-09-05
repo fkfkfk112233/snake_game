@@ -9,8 +9,14 @@ export function isWallCollision(head) {
   );
 }
 
+export function getFoodCollisionIndex(head) {
+  return game.foods.findIndex(
+    (food) => food.x === head.x && food.y === head.y,
+  );
+}
+
 export function isFoodCollision(head) {
-  return head.x === game.food.x && head.y === game.food.y;
+  return getFoodCollisionIndex(head) !== -1;
 }
 
 export function isSelfCollision(head) {

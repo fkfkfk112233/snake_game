@@ -1,4 +1,4 @@
-import { game, GAME_ORIENTATIONS } from "../state/gameState.js";
+import { game } from "../state/gameState.js";
 import { DEVICE_TYPES } from "../device/deviceDetector.js";
 
 export async function lockGameOrientation() {
@@ -13,14 +13,9 @@ export async function lockGameOrientation() {
   }
 
   try {
-    if (game.orientation === GAME_ORIENTATIONS.PORTRAIT) {
-      await screen.orientation.lock("portrait");
-      return;
-    }
-
-    if (game.orientation === GAME_ORIENTATIONS.LANDSCAPE) {
-      await screen.orientation.lock("landscape");
-    }
+    // 遊戲一律優先嘗試強制直立。
+    // 若瀏覽器不允許鎖定，會由 Mobile Landscape UI 自動處理。
+    await screen.orientation.lock("portrait");
   } catch (error) {
     console.warn("Unable to lock screen orientation:", error);
   }

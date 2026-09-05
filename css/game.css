@@ -68,3 +68,15 @@
 .game-over-buttons button {
   width: 100%;
 }
+
+.game-status {
+  min-height: 24px;
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.result-message {
+  margin-bottom: 24px;
+  font-size: 18px;
+}
