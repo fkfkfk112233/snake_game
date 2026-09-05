@@ -1,22 +1,19 @@
+/* ========================= Settings Screen ========================= */
 .settings-screen {
-    width: 100%;
+  width: 100%;
 }
-
 .settings-container {
-    width: 360px;
-    margin: 0 auto;
-    padding: 30px;
-}
-
+  width: min(360px, 90vw);
+  margin: 0 auto;
+  padding: 30px;
+} /* ========================= Settings Title ========================= */
 .settings-container h1 {
-    margin-bottom: 40px;
-    font-size: 36px;
-}
-
+  margin-bottom: 40px;
+  font-size: 36px;
+} /* ========================= Settings Buttons ========================= */
 .settings-buttons {
-    margin-top: 30px;
+  margin-top: 30px;
 }
-
 .settings-buttons button {
-    width: 100%;
+  width: 100%;
 }

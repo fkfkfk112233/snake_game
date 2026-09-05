@@ -1,36 +1,65 @@
+/* ========================= Global ========================= */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
-
+html,
 body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #222;
-    font-family: Arial, sans-serif;
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
 }
-
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #222;
+  font-family: Arial, sans-serif;
+} /* ========================= Main ========================= */
 main {
-    width: 100%;
-}
-
+  width: 100%;
+} /* ========================= Screen ========================= */
 .screen {
-    display: none;
-    width: 100%;
-    text-align: center;
-    color: white;
+  display: none;
+  width: 100%;
+  text-align: center;
+  color: white;
 }
-
 .screen.active {
-    display: block;
-}
-
+  display: block;
+} /* ========================= Button ========================= */
 button {
-    display: block;
-    margin: 10px auto;
-    padding: 10px 30px;
-    font-size: 16px;
-    cursor: pointer;
+  display: block;
+  margin: 10px auto;
+  padding: 10px 30px;
+  font-size: 16px;
+  cursor: pointer;
+} /* ========================= Shared Setting Components ========================= */
+.setting-group {
+  margin-bottom: 30px;
+}
+.setting-group h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+.option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px 15px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.option input {
+  margin-right: 10px;
+}
+.option span {
+  font-size: 16px;
+} /* ========================= Secondary Button ========================= */
+.secondary-button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #666;
 }

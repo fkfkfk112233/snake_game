@@ -59,40 +59,12 @@ document.getElementById("startGameButton").addEventListener("click", () => {
 
   game.mode = selectedMode;
 
-  // ====================
-  // Board Size
-  // ====================
-
+  // Mobile 固定使用 20 × 20
   if (game.deviceType === DEVICE_TYPES.MOBILE) {
-    // Mobile 固定 20 × 20
     game.boardSize = BOARD_SIZES.MOBILE;
-  } else {
-    // Desktop 使用玩家選擇
-    const selectedBoardSize = document.querySelector(
-      'input[name="boardSize"]:checked',
-    ).value;
-
-    game.boardSize = Number(selectedBoardSize);
   }
 
-  // ====================
-  // Mobile Control
-  // ====================
-
-  const selectedMobileControl = document.querySelector(
-    'input[name="mobileControl"]:checked',
-  );
-
-  if (selectedMobileControl) {
-    game.mobileControl = selectedMobileControl.value;
-  }
-
-  // 套用玩家剛選擇的 Mobile Control
   updateMobileControls();
-
-  // ====================
-  // Start
-  // ====================
 
   startGame();
 });
@@ -107,20 +79,71 @@ document.getElementById("settingsButton").addEventListener("click", () => {
   navigateTo(GAME_STATES.SETTINGS);
 });
 
+// ====================
+// Save Settings
+// ====================
+
 document.getElementById("saveSettingsButton").addEventListener("click", () => {
+  // ====================
+  // Game Speed
+  // ====================
+
   const selectedSpeed = document.querySelector(
     'input[name="gameSpeed"]:checked',
-  ).value;
-
-  game.speed = selectedSpeed;
-
-  const selectedOrientation = document.querySelector(
-    'input[name="gameOrientation"]:checked',
   );
 
-  if (selectedOrientation) {
-    game.orientation = selectedOrientation.value;
+  if (selectedSpeed) {
+    game.speed = selectedSpeed.value;
   }
+
+  // ====================
+  // Board Size
+  // ====================
+
+  if (game.deviceType === DEVICE_TYPES.DESKTOP) {
+    const selectedBoardSize = document.querySelector(
+      'input[name="boardSize"]:checked',
+    );
+
+    if (selectedBoardSize) {
+      game.boardSize = Number(selectedBoardSize.value);
+    }
+  } else {
+    // Mobile 固定 20 × 20
+    game.boardSize = BOARD_SIZES.MOBILE;
+  }
+
+  // ====================
+  // Mobile Control
+  // ====================
+
+  if (game.deviceType === DEVICE_TYPES.MOBILE) {
+    const selectedMobileControl = document.querySelector(
+      'input[name="mobileControl"]:checked',
+    );
+
+    if (selectedMobileControl) {
+      game.mobileControl = selectedMobileControl.value;
+    }
+  }
+
+  // ====================
+  // Game Orientation
+  // ====================
+
+  if (game.deviceType === DEVICE_TYPES.MOBILE) {
+    const selectedOrientation = document.querySelector(
+      'input[name="gameOrientation"]:checked',
+    );
+
+    if (selectedOrientation) {
+      game.orientation = selectedOrientation.value;
+    }
+  }
+
+  // ====================
+  // Return Home
+  // ====================
 
   navigateTo(GAME_STATES.HOME);
 });
@@ -140,6 +163,7 @@ document.getElementById("settingsBackButton").addEventListener("click", () => {
 document.getElementById("homeButton").addEventListener("click", () => {
   stopGame();
   unlockGameOrientation();
+
   navigateTo(GAME_STATES.HOME);
 });
 
@@ -179,6 +203,7 @@ function initializeDeviceSettings() {
   if (game.deviceType === DEVICE_TYPES.MOBILE) {
     boardSizeSetting.style.display = "none";
 
+    // Mobile 固定 20 × 20
     game.boardSize = BOARD_SIZES.MOBILE;
   }
 }
@@ -188,6 +213,10 @@ function initializeDeviceSettings() {
 // ====================
 
 function renderSettings() {
+  // ====================
+  // Game Speed
+  // ====================
+
   const speedRadio = document.querySelector(
     `input[name="gameSpeed"][value="${game.speed}"]`,
   );
@@ -195,6 +224,34 @@ function renderSettings() {
   if (speedRadio) {
     speedRadio.checked = true;
   }
+
+  // ====================
+  // Board Size
+  // ====================
+
+  const boardSizeRadio = document.querySelector(
+    `input[name="boardSize"][value="${game.boardSize}"]`,
+  );
+
+  if (boardSizeRadio) {
+    boardSizeRadio.checked = true;
+  }
+
+  // ====================
+  // Mobile Control
+  // ====================
+
+  const mobileControlRadio = document.querySelector(
+    `input[name="mobileControl"][value="${game.mobileControl}"]`,
+  );
+
+  if (mobileControlRadio) {
+    mobileControlRadio.checked = true;
+  }
+
+  // ====================
+  // Game Orientation
+  // ====================
 
   const orientationRadio = document.querySelector(
     `input[name="gameOrientation"][value="${game.orientation}"]`,
