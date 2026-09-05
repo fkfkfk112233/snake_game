@@ -193,4 +193,12 @@ function renderSettings() {
   if (speedRadio) {
     speedRadio.checked = true;
   }
+
+  const orientationRadio = document.querySelector(
+    `input[name="gameOrientation"][value="${game.orientation}"]`,
+  );
+
+  if (orientationRadio) {
+    orientationRadio.checked = true;
+  }
 }
